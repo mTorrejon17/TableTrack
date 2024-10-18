@@ -1,3 +1,33 @@
 <resources>
-    <string name="app_name">Table Track</string>
+    <string name="app_name" translatable="false">TableTrack</string>
+    <string name="welcome">¡Bienvenid@!</string>
+    <string name="hint_username">Nombre de usuario</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="hint_email">Correo electrónico</string>
+    <string name="forgot_password"><u>Olvidé mi contraseña</u></string>
+    <string name="text_sign_up">¿No tienes cuenta?</string>
+    <string name="text_forgot_password">Proporciona tu correo electrónico para restablecer la contraseña.</string>
+    <string name="terms_and_conditions">He leído y acepto los <font color='#0968F7'>Términos y Condiciones</font>."</string>
+    <string name="button_sign_up">Registrarse</string>
+    <string name="button_login">Ingresar</string>
+    <string name="button_forgot_password">Enviar enlace</string>
+
+    <string name="title_terms"><b>Términos y Condiciones</b></string>
+    <string name="title_sign_up"><b>Crear cuenta</b></string>
+    <string name="title_forgot_password"><b>Restablecer contraseña</b></string>
+    <string name="title_views"><b>TITULO</b></string>
+
+    <string name="failed_login">Ingreso fallido.</string>
+    <string name="please_all">Por favor, ingrese todos los datos requeridos.</string>
+    <string name="please_email">Por favor, ingrese un correo electrónico válido.</string>
+    <string name="please_password">La contraseña debe tener mínimo 6 caracteres.</string>
+    <string name="please_terms">Por favor, acepte los Términos y Condiciones.</string>
+
+    <string name="ok">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="save">Guardar</string>
+    <string name="delete">Eliminar</string>
+    <string name="close">Cerrar</string>
+
+    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.</string>
 </resources>

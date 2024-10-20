@@ -1,12 +1,19 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
+    // AÑADIDO DESDE FIREBASE
     id("com.google.gms.google-services")
 }
 
 android {
     namespace = "com.pedrodev.tabletrack"
     compileSdk = 34
+
+    // ACCESO A LAS VISTAS
+    buildFeatures{
+        viewBinding = true
+    }
 
     defaultConfig {
         applicationId = "com.pedrodev.tabletrack"
@@ -46,6 +53,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // AÑADIDO DESDE FIREBASE
     implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth")
 }

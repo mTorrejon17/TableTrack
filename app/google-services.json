@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "10505803934",
+    "project_id": "tabletrack-5a6f2",
+    "storage_bucket": "tabletrack-5a6f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:10505803934:android:f90dffb1892bbea6fc438f",
+        "android_client_info": {
+          "package_name": "com.pedrodev.tabletrack"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChxnS0ksCQpZKfGUcGqitJqN3s-42aD5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

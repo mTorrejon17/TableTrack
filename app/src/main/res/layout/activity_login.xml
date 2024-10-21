@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/orange_500"
+    android:background="@color/home_background_color"
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
@@ -31,7 +31,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/logo_full"
+            app:srcCompat="@drawable/vector_logo_full"
             android:contentDescription="@string/content_description_logo"/>
 
     </LinearLayout>
@@ -48,9 +48,9 @@
             android:layout_height="48dp"
             android:textAlignment="center"
             android:textSize="24sp"
+            android:textColor="@color/icon_color"
             android:fontFamily="@font/encode_sans_condensed"
             android:textStyle="bold"
-            android:textColor="@color/black"
             android:text="@string/welcome"/>
 
         <EditText
@@ -66,7 +66,7 @@
             android:maxLines="1"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:textColor="@color/black"
+            android:textColor="@color/icon_color"
             android:textColorHint="@color/placeholder_color"
             android:textSize="16sp" />
 
@@ -82,7 +82,7 @@
             android:maxLines="1"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:textColor="@color/black"
+            android:textColor="@color/icon_color"
             android:textColorHint="@color/placeholder_color"
             android:textSize="16sp" />
 
@@ -94,17 +94,17 @@
             android:paddingRight="10dp"
             android:text="@string/forgot_password"
             android:textAlignment="textStart"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textColor="@color/icon_color"
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/button_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:backgroundTint="@color/button_color"
             android:text="@string/button_login"
-            android:textColor="@color/white"
+            android:textColor="@color/icon_color_inverse"
             android:textSize="18sp"
             app:strokeColor="#000000"
             app:strokeWidth="1dp" />
@@ -123,17 +123,17 @@
             android:layout_height="match_parent"
             android:text="@string/text_sign_up"
             android:textAlignment="textEnd"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textColor="@color/icon_color"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/button_sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:backgroundTint="@color/button_color"
             android:text="@string/button_sign_up"
-            android:textColor="@color/white"
+            android:textColor="@color/icon_color_inverse"
             android:textSize="18sp"
             app:strokeColor="#000000"
             app:strokeWidth="1dp" />

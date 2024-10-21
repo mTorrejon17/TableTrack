@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     tools:context=".TableMapActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -39,11 +40,6 @@
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="70sp"
-        android:text="MESAS MAPA"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,10 +8,17 @@
     <color name="orange_800">#FFEF6C00</color>
     <color name="orange_900">#FFE65100</color>
 
-    <color name="status_bar_color">#FFFF9800</color>
-    <color name="placeholder_color">#FF989898</color>
+    <color name="background_color">@color/white</color>
+    <color name="home_background_color">@color/orange_500</color>
+    <color name="button_color">@color/orange_900</color>
+    <color name="status_bar_color">#FFE65100</color>
+    <color name="placeholder_color">#FF4C4C4C</color>
     <color name="edittext_color">#FFFFF5E1</color>
-    <color name="link_color">#FF0968F7</color>
+    <color name="edittext_stroke">@color/black</color>
+    <color name="link_color">#FFE65100</color>
+    <color name="icon_color">@color/black</color>
+    <color name="icon_color_inverse">@color/white</color>
+
 
     <color name="ic_tabletrack_background">#FD9701</color>
 

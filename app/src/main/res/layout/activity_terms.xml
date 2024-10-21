@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     tools:context=".TermsActivity">
 
     <androidx.constraintlayout.widget.Guideline
@@ -85,8 +86,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/button_color"
             android:text="@string/ok"
-            android:textColor="@color/white"
+            android:textColor="@color/icon_color_inverse"
             android:textSize="18sp"
             app:strokeColor="#000000"
             app:strokeWidth="1dp" />

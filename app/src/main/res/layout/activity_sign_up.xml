@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SignUpActivity">
+    tools:context=".SignUpActivity"
+    android:background="@color/background_color">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/signup_guideline_1"
@@ -40,6 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:text="@string/title_sign_up"
                 android:textColor="@color/black"
                 android:textSize="24sp" />
@@ -84,7 +86,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:textSize="16sp"
-            android:textColor="@color/black"
+            android:textColor="@color/icon_color"
             android:textColorHint="@color/placeholder_color" />
 
         <EditText
@@ -101,7 +103,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:textSize="16sp"
-            android:textColor="@color/black"
+            android:textColor="@color/icon_color"
             android:textColorHint="@color/placeholder_color" />
 
         <EditText
@@ -118,7 +120,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:textSize="16sp"
-            android:textColor="@color/black"
+            android:textColor="@color/icon_color"
             android:textColorHint="@color/placeholder_color" />
 
         <CheckBox
@@ -126,6 +128,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/encode_sans"
+            android:backgroundTint="@color/button_color"
             android:text="@string/terms_and_conditions"
             android:textSize="16sp"/>
 
@@ -144,8 +147,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:backgroundTint="@color/button_color"
             android:text="@string/button_sign_up"
-            android:textColor="@color/white"
+            android:textColor="@color/icon_color_inverse"
             android:textSize="18sp"
             app:strokeColor="#000000"
             app:strokeWidth="1dp" />

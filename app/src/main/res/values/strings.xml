@@ -7,7 +7,7 @@
     <string name="forgot_password"><u>Olvidé mi contraseña</u></string>
     <string name="text_sign_up">¿No tienes cuenta?</string>
     <string name="text_forgot_password">Proporciona tu correo electrónico para restablecer la contraseña.</string>
-    <string name="terms_and_conditions">He leído y acepto los <font color='#0968F7'>Términos y Condiciones</font>."</string>
+    <string name="terms_and_conditions">He leído y acepto los <font color='#E65100'>Términos y Condiciones</font>."</string>
     <string name="button_sign_up">Registrarse</string>
     <string name="button_login">Ingresar</string>
     <string name="button_forgot_password">Enviar enlace</string>

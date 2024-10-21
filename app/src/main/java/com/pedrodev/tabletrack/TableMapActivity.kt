@@ -26,12 +26,12 @@ class TableMapActivity : AppCompatActivity() {
         }
 
 
-        binding.buttonBack.setOnClickListener {
-            Firebase.auth.signOut()
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+//        binding.buttonBack.setOnClickListener {
+//            Firebase.auth.signOut()
+//            val intent = Intent(this, LoginActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
 
     }
 }

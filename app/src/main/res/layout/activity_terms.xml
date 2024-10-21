@@ -9,6 +9,20 @@
     tools:context=".TermsActivity">
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/toolbar_guideline_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.1"
+        android:orientation="vertical" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/toolbar_guideline_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.9"
+        android:orientation="vertical" />
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/terms_guideline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,32 +32,36 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:background="@color/orange_500"
         android:elevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+
+            android:text="@string/title_terms"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center">
 
+
             <ImageView
                 android:id="@+id/button_back"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/vector_chevron_left"/>
-
-            <TextView
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="@string/title_terms"
-                android:textColor="@color/black"
-                android:textSize="24sp" />
+                android:src="@drawable/vector_more"/>
+
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 

@@ -8,6 +8,8 @@
     android:background="@color/background_color"
     tools:context=".TableMapActivity">
 
+
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -17,43 +19,48 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageButton
-                android:id="@+id/left_button"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/vector_chevron_left"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/toolbar_guideline_start"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.1"
                 />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/toolbar_guideline_end"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.9"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_views"
+                android:text="[ MAPA MESAS ]"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/left_button"
-                app:layout_constraintRight_toLeftOf="@id/right_button"
+                app:layout_constraintLeft_toRightOf="@id/toolbar_guideline_start"
+                app:layout_constraintRight_toLeftOf="@id/toolbar_guideline_end"
                 />
-
             <ImageButton
                 android:id="@+id/right_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/vector_more"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/toolbar_guideline_end"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 

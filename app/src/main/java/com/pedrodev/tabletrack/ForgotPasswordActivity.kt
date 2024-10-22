@@ -28,7 +28,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         }
 
-        binding.buttonBack.setOnClickListener {
+        binding.back.setOnClickListener {
             this.moveTo(LoginActivity::class.java)
             finish()
         }

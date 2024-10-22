@@ -65,7 +65,7 @@ class SignUpActivity : AppCompatActivity() {
             Functions.clearData(this, "temp_data")
         }
 
-        binding.buttonBack.setOnClickListener {
+        binding.back.setOnClickListener {
             Functions.clearData(this, "temp_data")
             this.moveTo(LoginActivity::class.java)
             finish()

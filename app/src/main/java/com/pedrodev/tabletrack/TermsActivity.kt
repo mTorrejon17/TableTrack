@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.pedrodev.tabletrack.Functions.moveTo
 import com.pedrodev.tabletrack.databinding.ActivityLoginBinding
 import com.pedrodev.tabletrack.databinding.ActivityTermsBinding
 
@@ -30,15 +31,12 @@ class TermsActivity : AppCompatActivity() {
             editor.putBoolean("accepted_terms", true)
             editor.apply()
 
-            val intent = Intent(this, SignUpActivity::class.java)
+            this.moveTo(SignUpActivity::class.java)
             startActivity(intent)
         }
 
-        binding.buttonBack.setOnClickListener {
-
-
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
+        binding.back.setOnClickListener {
+            this.moveTo(SignUpActivity::class.java)
             finish()
         }
     }

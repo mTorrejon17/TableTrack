@@ -52,7 +52,7 @@
                 android:src="@drawable/vector_chevron_left"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintright_toLeftOf="@id/toolbar_guideline_start"
+                app:layout_constraintRight_toRightOf="@id/toolbar_guideline_start"
                 />
             <TextView
                 android:layout_width="wrap_content"

@@ -1,6 +1,5 @@
 package com.pedrodev.tabletrack
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -8,26 +7,18 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.pedrodev.tabletrack.Functions.moveTo
 import com.pedrodev.tabletrack.databinding.ActivityLoginBinding
-import com.pedrodev.tabletrack.databinding.ActivityTermsBinding
+import com.pedrodev.tabletrack.databinding.ActivitySettingsBinding
 
-class TermsActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityTermsBinding
+class SettingsActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySettingsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityTermsBinding.inflate(layoutInflater)
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
-
-        binding.okTerms.setOnClickListener {
-            Functions.saveBoolean(this, "temp_data", "accepted_terms", true)
-            this.moveTo(SignUpActivity::class.java)
-            finish()
-        }
 
         binding.back.setOnClickListener {
-            this.moveTo(SignUpActivity::class.java)
+            this.moveTo(TableMapActivity::class.java)
             finish()
         }
     }

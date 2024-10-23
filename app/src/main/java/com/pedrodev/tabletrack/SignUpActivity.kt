@@ -19,8 +19,8 @@ class SignUpActivity : AppCompatActivity() {
 
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         auth = Firebase.auth
-
 
         val acceptedTerms = Functions.getBoolean(this, "temp_data", "accepted_terms")
         binding.checkboxTerms.isChecked = acceptedTerms
@@ -46,7 +46,7 @@ class SignUpActivity : AppCompatActivity() {
                 this.alert(getString(R.string.please_terms))
                 return@setOnClickListener
             }
-            if (password.length <= 6) {
+            if (password.length < 6) {
                 this.alert(getString(R.string.please_password))
                 return@setOnClickListener
             }

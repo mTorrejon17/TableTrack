@@ -3,12 +3,17 @@ package com.pedrodev.tabletrack
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.pedrodev.tabletrack.Functions.alert
+import com.pedrodev.tabletrack.Functions.moveTo
 import com.pedrodev.tabletrack.databinding.ActivityTableMapBinding
 
 class TableMapActivity : AppCompatActivity() {
@@ -16,22 +21,42 @@ class TableMapActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityTableMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        setSupportActionBar(binding.toolbar)
+
+        binding.optionsMenu.setOnClickListener {
+            val optionsMenu = PopupMenu(this, binding.optionsMenu)
+
+            optionsMenu.menuInflater.inflate(R.menu.table_view_menu, optionsMenu.menu)
+
+            optionsMenu.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.option_edit_tables -> {
+                        this.alert("SELECCIONADO: Editar mesas")
+                        true
+                    }
+                    R.id.option_change_view -> {
+                        this.moveTo(TableListActivity::class.java)
+                        finish()
+                        true
+                    }
+                    R.id.option_settings -> {
+                        this.moveTo(SettingsActivity::class.java)
+                        finish()
+                        true
+                    }
+                    R.id.option_logout -> {
+                        Firebase.auth.signOut()
+                        this.moveTo(LoginActivity::class.java)
+                        finish()
+                        true
+                    }
+                    else -> false
+                }
+            }
+            optionsMenu.show()
         }
+    } // FIN OnCreate
 
-
-//        binding.buttonBack.setOnClickListener {
-//            Firebase.auth.signOut()
-//            val intent = Intent(this, LoginActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
-
-    }
 }

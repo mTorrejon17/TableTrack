@@ -38,6 +38,7 @@
     <string name="please_email">Por favor, ingrese un correo electrónico válido.</string>
     <string name="please_password">La contraseña debe tener mínimo 6 caracteres.</string>
     <string name="please_terms">Por favor, acepte los Términos y Condiciones.</string>
+    <string name="link_password">Se ha enviado un enlace a tu correo para restablecer la contraseña.</string>
 
     <string name="ok">Aceptar</string>
     <string name="cancel">Cancelar</string>

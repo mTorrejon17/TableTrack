@@ -3,8 +3,9 @@ package com.pedrodev.tabletrack
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import java.net.InetAddress
 
 object Functions {
@@ -29,9 +30,14 @@ object Functions {
 
     // MOSTRAR MENSAJES AL USUARIO ***********************************************************
     // ej:    alert("Ingreso fallido.")
+    fun View.alert(message: String) {
+        Snackbar.make(this, message, Snackbar.LENGTH_SHORT).show()
+    }
+    /*
     fun Context.alert(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
+     */
 
 
     // VALIDACIONES **************************************************************************

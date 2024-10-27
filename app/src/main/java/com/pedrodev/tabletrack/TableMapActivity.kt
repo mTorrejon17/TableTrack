@@ -1,15 +1,8 @@
 package com.pedrodev.tabletrack
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.pedrodev.tabletrack.Functions.alert
@@ -33,7 +26,7 @@ class TableMapActivity : AppCompatActivity() {
             optionsMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.option_edit_tables -> {
-                        this.alert("SELECCIONADO: Editar mesas")
+                        binding.root.alert("SELECCIONADO: Editar mesas")
                         true
                     }
                     R.id.option_change_view -> {

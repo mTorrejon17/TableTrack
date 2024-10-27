@@ -1,20 +1,11 @@
 package com.pedrodev.tabletrack
 
-import android.content.ContentValues.TAG
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.pedrodev.tabletrack.databinding.ActivityLoginBinding
-import com.pedrodev.tabletrack.Functions
 import com.pedrodev.tabletrack.Functions.alert
 import com.pedrodev.tabletrack.Functions.closeKeyboard
 import com.pedrodev.tabletrack.Functions.moveTo
@@ -43,11 +34,11 @@ class LoginActivity : AppCompatActivity() {
                             val user = auth.currentUser
                             this.moveTo(TableMapActivity::class.java)
                         } else {
-                            this.alert(getString(R.string.failed_login))
+                            binding.root.alert(getString(R.string.failed_login))
                         }
                     }
             } else {
-                this.alert(getString(R.string.failed_login))
+                binding.root.alert(getString(R.string.failed_login))
             }
             it.postDelayed({
                 it.isClickable = true

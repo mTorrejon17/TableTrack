@@ -30,24 +30,48 @@ class SignUpActivity : AppCompatActivity() {
             val email = binding.createEmail.text.toString().trim()
             val password = binding.createPassword.text.toString().trim()
             val termsChecked = binding.checkboxTerms.isChecked
+            var validRegister = true
 
             it.isClickable = false
 
-            if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                this.alert(getString(R.string.please_all))
+            if (username.isEmpty()) {
+                //binding.root.alert(getString(R.string.please_all))
+                binding.createUsername.error = getString(R.string.required)
+                validRegister = false
+            }
+            if (email.isEmpty()) {
+                //binding.root.alert(getString(R.string.please_all))
+                binding.createEmail.error = getString(R.string.required)
+                validRegister = false
+            }
+            if (password.isEmpty()) {
+                //binding.root.alert(getString(R.string.please_all))
+                binding.createPassword.error = getString(R.string.required)
+                validRegister = false
+            }
+            if (!validRegister) {
+                binding.root.alert(getString(R.string.please_all))
+                it.isClickable = true
                 return@setOnClickListener
             }
+
             if (!Functions.checkValidEmail(email) &&
                 !Functions.checkValidDomain(email))  {
-                this.alert(getString(R.string.please_email))
-                return@setOnClickListener
-            }
-            if (!termsChecked) {
-                this.alert(getString(R.string.please_terms))
+                //binding.root.alert(getString(R.string.please_email))
+                binding.createEmail.error = getString(R.string.please_email)
+                it.isClickable = true
                 return@setOnClickListener
             }
             if (password.length < 6) {
-                this.alert(getString(R.string.please_password))
+                //binding.root.alert(getString(R.string.please_password))
+                binding.createPassword.error = getString(R.string.please_password)
+                it.isClickable = true
+                return@setOnClickListener
+            }
+            if (!termsChecked) {
+                //binding.root.alert(getString(R.string.please_terms))
+                binding.checkboxTerms.error = getString(R.string.please_terms)
+                it.isClickable = true
                 return@setOnClickListener
             }
 
@@ -57,7 +81,7 @@ class SignUpActivity : AppCompatActivity() {
                         val user = auth.currentUser
                         this.moveTo(TableMapActivity::class.java)
                     } else {
-                        this.alert(getString(R.string.failed_login))
+                        binding.root.alert(getString(R.string.failed_login))
                         it.isClickable = true
                     }
                 }

@@ -23,6 +23,16 @@
     <string name="option_settings">Ajustes</string>
     <string name="option_logout">Cerrar sesión</string>
 
+    <string name="settings_font">Fuente</string>
+    <string name="settings_subtitle_font">Tamaño de fuente</string>
+    <string name="settings_colors">Paleta de colores</string>
+    <string name="settings_subtitle_colors">Seleccionar paleta de colores</string>
+    <string name="settings_team_management">Gestionar equipo</string>
+    <string name="settings_subtitle_team_management">Invitar usuarios, permisos de usuario…</string>
+    <string name="settings_profile">Perfil</string>
+    <string name="settings_subtitle_profile">Nombre de usuario, email, contraseña</string>
+
+    <string name="required">Campo obligatorio</string>
     <string name="failed_login">Ingreso fallido.</string>
     <string name="please_all">Por favor, ingrese todos los datos requeridos.</string>
     <string name="please_email">Por favor, ingrese un correo electrónico válido.</string>

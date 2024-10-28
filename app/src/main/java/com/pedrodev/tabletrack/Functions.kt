@@ -100,4 +100,9 @@ object Functions {
         editor.apply()
     }
 
+    // GUARDAR DATOS EN FIREBASE
+    fun saveUserDatabase(name: String, email: String, ) {
+
+    }
+
 }

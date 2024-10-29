@@ -2,8 +2,10 @@ package com.pedrodev.tabletrack
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.pedrodev.tabletrack.Functions.alert
 import com.pedrodev.tabletrack.Functions.closeKeyboard
@@ -78,11 +80,28 @@ class SignUpActivity : AppCompatActivity() {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
+                        val db = FirebaseFirestore.getInstance()
                         val user = auth.currentUser
-                        this.moveTo(TableMapActivity::class.java)
+                        val userID = user?.uid
+                        val userData = hashMapOf(
+                            "username" to username,
+                            "email" to email,
+                            "timeCreation" to Timestamp.now()
+                        )
+
+                        userID?.let {
+                            db.collection("users").document(it).set(userData)
+                                .addOnSuccessListener {
+                                    this.moveTo(TableMapActivity::class.java)
+                                }
+                                .addOnFailureListener {
+                                    binding.root.alert(getString(R.string.failed_database))
+                                    binding.buttonCreateSignUp.isClickable = true
+                                }
+                        }
                     } else {
-                        binding.root.alert(getString(R.string.failed_login))
-                        it.isClickable = true
+                        binding.root.alert(getString(R.string.failed_sign_up))
+                        binding.buttonCreateSignUp.isClickable = true
                     }
                 }
             closeKeyboard()

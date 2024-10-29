@@ -40,10 +40,10 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 binding.root.alert(getString(R.string.failed_login))
             }
+            closeKeyboard()
             it.postDelayed({
                 it.isClickable = true
             },1000)
-            closeKeyboard()
         }
 
         binding.buttonSignUp.setOnClickListener {

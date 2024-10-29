@@ -13,6 +13,12 @@ class SettingsActivity : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.settingsProfile.setOnClickListener {
+            this.moveTo(SettingsProfileActivity::class.java)
+            finish()
+        }
+
+
         binding.back.setOnClickListener {
             this.moveTo(TableMapActivity::class.java)
             finish()

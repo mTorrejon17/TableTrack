@@ -2,22 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:icon="@drawable/vector_more"
         android:id="@+id/option_edit_tables"
         android:title="@string/option_edit_tables"
-        android:orderInCategory="100"
+        android:orderInCategory="1"
         app:showAsAction="never"
         />
     <item
         android:id="@+id/option_change_view"
         android:title="@string/option_change_view_list"
-        android:orderInCategory="100"
+        android:orderInCategory="2"
         app:showAsAction="never"
         />
     <item
         android:id="@+id/option_settings"
         android:title="@string/option_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="3"
         app:showAsAction="never"
         />
     <item

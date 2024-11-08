@@ -8,7 +8,12 @@
     android:background="@color/background_color"
     tools:context=".TableMapActivity">
 
-
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/toolbar_guideline_floating"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -42,7 +47,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="[ MAPA MESAS ]"
+                android:text="@string/placeholder_title_map"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="24sp"
@@ -66,5 +71,14 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:src="@drawable/vector_add"
+        android:backgroundTint="@color/button_color"
+        android:contentDescription="@string/content_description_button_add"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar_guideline_floating"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -74,6 +74,8 @@ class SignUpActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             closeKeyboard()
+            // TODA LA AUTENTICACIÓN DEL USUARIO Y LO DE LA BASE DE DATOS
+            // SE MOVIÓ A SelectRoleActivity
             this.moveTo(SelectRoleActivity::class.java)
         }
 

@@ -71,6 +71,8 @@ class SelectRoleActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                             db.collection("users").document(it).set(userData)
                                 .addOnSuccessListener {
                                     this.moveTo(TableMapActivity::class.java)
+                                    Functions.clearData(this, "temp_data")
+                                    finish()
                                 }
                                 .addOnFailureListener {
                                     binding.root.alert(getString(R.string.failed_database))
@@ -82,9 +84,6 @@ class SelectRoleActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                         binding.buttonSignUp.isClickable = true
                     }
                 }
-            this.moveTo(TableMapActivity::class.java)
-            Functions.clearData(this, "temp_data")
-            finish()
         }
     }
 

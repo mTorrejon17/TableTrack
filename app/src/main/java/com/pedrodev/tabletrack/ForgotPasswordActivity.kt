@@ -19,6 +19,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         auth = FirebaseAuth.getInstance()
+
         binding.progressBar.visibility = View.GONE
 
         binding.okForgotPassword.setOnClickListener {

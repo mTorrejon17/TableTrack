@@ -5,16 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="@color/background_color"
-    tools:context=".ForgotPasswordActivity">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.4"/>
+    android:orientation="vertical"
+    tools:context=".SelectRoleActivity"
+    android:background="@color/background_color">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -53,11 +46,12 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="@id/toolbar_guideline_start"
-                android:contentDescription="@string/back" />
+                android:contentDescription="@string/back"
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_forgot_password"
+                android:text="@string/title_select_rol"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="24sp"
@@ -65,7 +59,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/toolbar_guideline_start"
-                app:layout_constraintRight_toRightOf="@id/toolbar_guideline_end" />
+                app:layout_constraintRight_toLeftOf="@id/toolbar_guideline_end"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
@@ -76,54 +71,70 @@
         android:layout_margin="40dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:text="@string/text_forgot_password"
+            android:layout_marginBottom="24dp"
+            android:text="@string/text_select_role"
+            android:textColor="@color/icon_color"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/spinner_role"
+            style="@android:style/Widget.Holo.Light.Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="48dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout_name_code"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="40dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/text_name_or_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="@string/text_restaurant_name"
             android:textColor="@color/icon_color"
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/forgot_email"
+            android:id="@+id/edit_text_name_or_code"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="30dp"
-            android:autofillHints="emailAddress"
+            android:layout_marginBottom="100dp"
             android:background="@drawable/edittext_background"
-            android:hint="@string/hint_email"
-            android:inputType="textEmailAddress"
+            android:hint="@string/hint_restaurant_name"
+            android:autofillHints="none"
+            android:inputType="textNoSuggestions"
             android:maxLength="50"
             android:maxLines="1"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
+            android:paddingHorizontal="15dp"
+            android:textSize="16sp"
             android:textColor="@color/icon_color"
-            android:textColorHint="@color/placeholder_color"
-            android:textSize="16sp" />
+            android:textColorHint="@color/placeholder_color" />
 
         <Button
-            android:id="@+id/ok_forgot_password"
-            android:layout_width="wrap_content"
+            android:id="@+id/button_sign_up"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="end"
+            android:layout_marginHorizontal="80dp"
             android:backgroundTint="@color/button_color"
-            android:text="@string/button_forgot_password"
+            android:text="@string/button_sign_up"
             android:textColor="@color/icon_color_inverse"
             android:textSize="18sp"
             app:strokeColor="#000000"
             app:strokeWidth="1dp" />
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/guideline"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

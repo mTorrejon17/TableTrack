@@ -52,5 +52,25 @@ class TableListActivity : AppCompatActivity() {
             optionsMenu.show()
         }
 
+        binding.fabTables.setOnClickListener {
+            val fabOptions = PopupMenu(this, binding.fabTables)
+
+            fabOptions.menuInflater.inflate(R.menu.fab_add_menu, fabOptions.menu)
+
+            fabOptions.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.fab_add_room -> {
+                        true
+                    }
+                    R.id.fab_add_table -> {
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+            fabOptions.show()
+        }
+
     }
 }

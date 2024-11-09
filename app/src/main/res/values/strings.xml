@@ -4,9 +4,14 @@
     <string name="hint_username">Nombre de usuario</string>
     <string name="hint_password">Contraseña</string>
     <string name="hint_email">Correo electrónico</string>
+    <string name="hint_restaurant_name">Nombre del Restaurante</string>
+    <string name="hint_restaurant_code">Código del Restaurante</string>
     <string name="forgot_password"><u>Olvidé mi contraseña</u></string>
     <string name="text_sign_up">¿No tienes cuenta?</string>
     <string name="text_forgot_password">Proporciona tu correo electrónico para restablecer la contraseña.</string>
+    <string name="text_select_role">Selecciona el rol que tendrás en el local.</string>
+    <string name="text_restaurant_name">Escribe un nombre para tu restaurante.</string>
+    <string name="text_restaurant_code">Para unirte, ingresa el código del restaurante. Solicítalo al administrador.</string>
     <string name="terms_and_conditions">He leído y acepto los <font color='#E65100'>Términos y Condiciones</font>."</string>
     <string name="button_sign_up">Registrarse</string>
     <string name="button_login">Ingresar</string>
@@ -14,6 +19,7 @@
 
     <string name="title_terms"><b>Términos y Condiciones</b></string>
     <string name="title_sign_up"><b>Crear cuenta</b></string>
+    <string name="title_select_rol"><b>Local y Roles</b></string>
     <string name="title_forgot_password"><b>Restablecer contraseña</b></string>
     <string name="title_settings">Ajustes</string>
     <string name="title_views"><b>TITULO</b></string>
@@ -50,6 +56,9 @@
     <string name="save">Guardar</string>
     <string name="delete">Eliminar</string>
     <string name="close">Cerrar</string>
+    <string name="next">Siguiente</string>
+    <string name="back">Volver</string>
+
 
     <string name="placeholder_username">Usuario</string>
     <string name="placeholder_email">Email</string>
@@ -58,8 +67,18 @@
     <string name="placeholder_title_map">[ MAPA MESAS ]</string>
     <string name="placeholder_title_list">[ LISTA MESAS ]</string>
 
+
     <string name="content_description_logo">Logo TableTrack</string>
+    <string name="content_description_icon_user">Ícono usuario</string>
     <string name="content_description_button_add">Añadir elementos</string>
+    <string name="content_description_options_menu">Menú de opciones</string>
+    
+    <string-array name="spinner_role_options">
+        <item>- Elige rol -</item>
+        <item>Administrador/a</item>
+        <item>Mesero/a</item>
+        <item>Recepcionista</item>
+    </string-array>
 
     <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.</string>
 </resources>

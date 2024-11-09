@@ -10,8 +10,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_tabletrack_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TableTrack"
-        tools:targetApi="31">
+        android:theme="@style/Theme.TableTrack">
+        <activity
+            android:name=".CreateRestaurantActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SelectRoleActivity"
+            android:exported="false" />
         <activity
             android:name=".SettingsProfileActivity"
             android:exported="false" />

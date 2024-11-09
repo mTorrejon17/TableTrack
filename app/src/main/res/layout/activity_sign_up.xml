@@ -53,6 +53,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="@id/toolbar_guideline_start"
+                android:contentDescription="@string/back"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -79,7 +80,8 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/vector_account" />
+            app:srcCompat="@drawable/vector_account"
+            android:contentDescription="@string/content_description_icon_user"/>
     </LinearLayout>
 
     <LinearLayout
@@ -169,7 +171,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:backgroundTint="@color/button_color"
-            android:text="@string/button_sign_up"
+            android:text="@string/next"
             android:textColor="@color/icon_color_inverse"
             android:textSize="18sp"
             app:strokeColor="#000000"

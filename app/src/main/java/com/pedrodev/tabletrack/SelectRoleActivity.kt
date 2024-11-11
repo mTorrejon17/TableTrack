@@ -15,10 +15,14 @@ import com.google.firebase.ktx.Firebase
 import com.pedrodev.tabletrack.Functions.alert
 import com.pedrodev.tabletrack.Functions.moveTo
 import com.pedrodev.tabletrack.databinding.ActivitySelectRoleBinding
+import kotlin.random.Random
 
 class SelectRoleActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivitySelectRoleBinding
     private lateinit var auth: FirebaseAuth
+    private var userRole: Int? = null
+    private var randomCodeLength = 6
+    val charactersInCode : List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +30,9 @@ class SelectRoleActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         auth = Firebase.auth
+
+        binding.progressBar.visibility = View.GONE
+        binding.linearLayoutNameCode.visibility = View.GONE
 
         val username = Functions.getString(this, "temp_data", "username")
         val email = Functions.getString(this, "temp_data", "email")
@@ -43,29 +50,55 @@ class SelectRoleActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
             spinner.adapter = adapter
         }
         //
-        binding.linearLayoutNameCode.visibility = View.GONE
 
         binding.back.setOnClickListener {
             this.moveTo(SignUpActivity::class.java)
         }
 
         binding.buttonSignUp.setOnClickListener {
-            Log.d("TAG","onclicklistener sign up")
-            Log.d("TAG","username = $username | email = $email")
+            val nameOrCode = binding.editTextNameOrCode.text.toString().trim()
+            val randomCode = generateRandomCodeRestaurant()
+
+            binding.back.isClickable = false
+            binding.linearLayout.visibility = View.GONE
+            binding.linearLayoutNameCode.visibility = View.GONE
+            binding.progressBar.visibility = View.VISIBLE
+
             auth.createUserWithEmailAndPassword(email.toString(), password.toString())
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        // AHORA NO LLEVA LOS DATOS A LA BASE DE DATOS
-                        // AAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!
-
                         val db = FirebaseFirestore.getInstance()
                         val user = auth.currentUser
                         val userID = user?.uid
+
                         val userData = hashMapOf(
                             "username" to username,
                             "email" to email,
                             "timeCreation" to Timestamp.now()
                         )
+                        // AQUÍ FALTA QUE SE CREE EL RESTAURANTE O QUE SE UNA A UN RESTAURANTE EXISTENTE
+                        when (userRole) {
+                            1 -> {
+                                val restaurantData = hashMapOf(
+                                    "name" to nameOrCode,
+                                    "adminID" to userID,
+                                    "timeCreation" to Timestamp.now()
+                                )
+
+                                db.collection("restaurants").document(randomCode).set(restaurantData)
+                                    .addOnSuccessListener {
+                                        Log.d("TAG", "FUNCIONÓ, name: $nameOrCode | code: $randomCode ")
+                                    }
+                                    .addOnFailureListener {
+                                        Log.d("ERROR", "aaaaaaaaaaaaaa")
+                                    }
+
+                            }
+                            2, 3 -> {
+
+                            }
+                            else -> TODO()
+                        }
 
                         userID?.let {
                             db.collection("users").document(it).set(userData)
@@ -87,8 +120,12 @@ class SelectRoleActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         }
     }
 
+    public override fun onStart() {
+        super.onStart()
+        binding.back.isClickable = true
+    }
+
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
-        //val optionSelected = parent.getItemAtPosition(pos).toString()
         when (pos) {
             1 -> { // ADMINISTRACIÓN
                 binding.textNameOrCode.text = getString(R.string.text_restaurant_name)
@@ -102,9 +139,15 @@ class SelectRoleActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
             }
             else -> binding.linearLayoutNameCode.visibility = View.GONE
         }
+        userRole = pos
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         // aquí hasta ahora no iría nada, pero cuando se borra tira un error xd
     }
+
+    private fun generateRandomCodeRestaurant() = (1..randomCodeLength)
+        .map { Random.nextInt(0, charactersInCode.size).let { charactersInCode[it]} }
+        .joinToString("")
+
 }

@@ -63,6 +63,8 @@
     <string name="placeholder_username">Usuario</string>
     <string name="placeholder_email">Email</string>
     <string name="placeholder_password">Contraseña</string>
+    <string name="placeholder_restaurant_name">Restaurante</string>
+    <string name="placeholder_restaurant_code">Código de restaurante</string>
     <string name="placeholder_password_forgot">Restablecer contraseña</string>
     <string name="placeholder_title_map">[ MAPA MESAS ]</string>
     <string name="placeholder_title_list">[ LISTA MESAS ]</string>
@@ -72,7 +74,7 @@
     <string name="content_description_icon_user">Ícono usuario</string>
     <string name="content_description_button_add">Añadir elementos</string>
     <string name="content_description_options_menu">Menú de opciones</string>
-    
+
     <string-array name="spinner_role_options">
         <item>- Elige rol -</item>
         <item>Administrador/a</item>

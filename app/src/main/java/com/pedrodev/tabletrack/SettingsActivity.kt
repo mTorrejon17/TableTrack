@@ -18,6 +18,10 @@ class SettingsActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.settingsTeam.setOnClickListener {
+            this.moveTo(SettingsTeamActivity::class.java)
+            finish()
+        }
 
         binding.back.setOnClickListener {
             this.moveTo(TableMapActivity::class.java)

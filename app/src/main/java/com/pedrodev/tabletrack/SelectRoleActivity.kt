@@ -7,6 +7,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -57,19 +59,145 @@ class SelectRoleActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         }
 
         binding.buttonSignUp.setOnClickListener {
-            val nameOrCode = binding.editTextNameOrCode.text.toString().trim()
-            var randomCode = generateRandomCodeRestaurant()
-            var validRestaurant = false
-
             binding.back.isClickable = false
             binding.linearLayout.visibility = View.GONE
             binding.linearLayoutNameCode.visibility = View.GONE
             binding.progressBar.visibility = View.VISIBLE
 
+            val db = FirebaseFirestore.getInstance()
+            val user = auth.currentUser
+            val userID = user?.uid
+            var validCode = false
+
+            val task = when (roleInt) {
+                1 -> {
+                    null
+                }
+                2, 3 -> {
+                    val restaurantCode = binding.editTextNameOrCode.text.toString().trim()
+                    db.collection("restaurants").document(restaurantCode).get()
+                        .addOnSuccessListener { document ->
+                            if (!document.exists()) {
+                                Log.e("TAG", "ERROR. El código $restaurantCode no está registrado.")
+                                binding.root.alert("Código ingresado no existe.")
+                                binding.linearLayout.visibility = View.VISIBLE
+                                binding.linearLayoutNameCode.visibility = View.VISIBLE
+                                binding.progressBar.visibility = View.GONE
+                                validCode = false
+                            } else {
+                                validCode = true
+                            }
+                        }
+                        .addOnFailureListener {
+                            Log.e("TAG", "FAILURELISTENER")
+                            validCode = false
+                        }
+                }
+                else -> null
+            }
+
+            task?.let {
+                Tasks.whenAllComplete(task).addOnCompleteListener {
+                    if (!validCode) {
+                        Log.d("TAG", "Se detectó un error y se detuvo la ejecución.")
+                        return@addOnCompleteListener
+                    }
+                    Log.d("TAG", "EL CODIGO SIGUIO DESPUES DEL RETURN")
+                }
+            }
+
+
+
+            /*
+
+            val userData = hashMapOf(
+                "username" to username,
+                "email" to email,
+                "role" to roleString,
+                "timeCreation" to Timestamp.now()
+            )
+
+            if (roleInt == 1) {
+                val randomCode = generateRandomCodeRestaurant()
+                val restaurantName = binding.editTextNameOrCode.text.toString().trim()
+
+                db.collection("restaurants").document(randomCode).get()
+                    .addOnSuccessListener { document ->
+                        if (!document.exists()) {
+                            val restaurantData = hashMapOf(
+                                "name" to restaurantName,
+                                "adminID" to userID,
+                                "timeCreation" to Timestamp.now()
+                            )
+
+
+
+                        } else {
+
+                        }
+                    }
+
+                db.collection("users").document(userID.toString()).set(userData)
+                    .addOnSuccessListener {
+                        Log.d("TAG", "Admin $username")
+                    }
+                    .addOnFailureListener {
+                        Log.d("TAG", "Usuario $username NO asociado con restaurantes")
+                    }
+
+
+            } else {
+                val restaurantCode = binding.editTextNameOrCode.text.toString().trim()
+
+                db.collection("users").document(userID.toString()).set(userData)
+                    .addOnSuccessListener {
+                        Log.d("TAG", "Usuario $username creado y asociado con éxito a restaurante $restaurantCode")
+                    }
+                    .addOnFailureListener {
+                        Log.d("TAG", "Usuario $username NO asociado con restaurantes")
+                    }
+
+                db.collection("restaurants").document(restaurantCode).get()
+                    .addOnSuccessListener { document ->
+                        if (!document.exists()) {
+                            binding.root.alert("Código ingresado no existe.")
+                             return@addOnSuccessListener
+                        } else {
+                           db.collection("users").document(userID.toString())
+                               .set()
+                        }
+
+                    }
+            }
+
+            db.collection("users").document(userID.toString())
+                .update("restaurantID", restaurantCode)
+                .addOnSuccessListener {
+                    Log.d("TAG",
+                        "usuario asociado con restaurante" +
+                                "user: $username | restaurantecode: $restaurantCode")
+
+                    this.moveTo(TableMapActivity::class.java)
+                }
+                .addOnFailureListener {
+                    Log.d("ERROR",
+                        "falló asociar usuario y restaurant")
+                }
+
+            Log.e("TAG", "El programa siguió")
+
+
+
+
+             */
+
+
+
+            /*
             auth.createUserWithEmailAndPassword(email.toString(), password.toString())
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        val db = FirebaseFirestore.getInstance()
+
                         val user = auth.currentUser
                         val userID = user?.uid
 
@@ -134,10 +262,6 @@ class SelectRoleActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                                     }
                             }
                         }
-                        Log.d("ERROR", "validRestaurant = $validRestaurant")
-                        Log.d("ERROR", "validRestaurant = $validRestaurant")
-                        Log.d("ERROR", "validRestaurant = $validRestaurant")
-                        Log.d("ERROR", "validRestaurant = $validRestaurant")
 
                         if (!validRestaurant) {
                             Log.d("ERROR", "VALID RESTAURANT FAAAAAAAAAAALSE")
@@ -166,6 +290,8 @@ class SelectRoleActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
                     }
                 }
+
+             */
         }
     }
 
@@ -175,31 +301,26 @@ class SelectRoleActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+        binding.linearLayoutNameCode.visibility = View.VISIBLE
+        roleInt = pos
         when (pos) {
             1 -> { // ADMINISTRACIÓN
                 binding.textNameOrCode.text = getString(R.string.text_restaurant_name)
                 binding.editTextNameOrCode.hint = getString(R.string.hint_restaurant_name)
-                binding.linearLayoutNameCode.visibility = View.VISIBLE
                 roleString = "admin"
-                roleInt = 1
             }
-            2 -> { // MESEROS Y RECEPCIÓN
+            2 -> { // MESEROS
                 binding.textNameOrCode.text = getString(R.string.text_restaurant_code)
                 binding.editTextNameOrCode.hint = getString(R.string.hint_restaurant_code)
-                binding.linearLayoutNameCode.visibility = View.VISIBLE
                 roleString = "waiter"
-                roleInt = 2
             }
-            3 -> {
+            3 -> {  // RECEPCIÓN
                 binding.textNameOrCode.text = getString(R.string.text_restaurant_code)
                 binding.editTextNameOrCode.hint = getString(R.string.hint_restaurant_code)
-                binding.linearLayoutNameCode.visibility = View.VISIBLE
                 roleString = "receptionist"
-                roleInt = 3
             }
             else -> binding.linearLayoutNameCode.visibility = View.GONE
         }
-
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -209,7 +330,20 @@ class SelectRoleActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
     private fun generateRandomCodeRestaurant() = (1..randomCodeLength)
         .map { Random.nextInt(0, charactersInCode.size).let { charactersInCode[it]} }
         .joinToString("")
-        // esto genera el código para el restaurante de 6 caracteres
+    // esto genera el código para el restaurante de 6 caracteres
+
+
+    private fun addUserToDB() {
+
+    }
+
+    private fun addRestaurantToDB() {
+
+    }
+
+    private fun userAuthFirebase() {
+
+    }
 
 
 }

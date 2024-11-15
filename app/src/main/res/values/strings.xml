@@ -66,8 +66,7 @@
     <string name="placeholder_restaurant_name">Restaurante</string>
     <string name="placeholder_restaurant_code">Código de restaurante</string>
     <string name="placeholder_password_forgot">Restablecer contraseña</string>
-    <string name="placeholder_title_map">[ MAPA MESAS ]</string>
-    <string name="placeholder_title_list">[ LISTA MESAS ]</string>
+    <string name="placeholder_title_map"> </string>
 
 
     <string name="content_description_logo">Logo TableTrack</string>

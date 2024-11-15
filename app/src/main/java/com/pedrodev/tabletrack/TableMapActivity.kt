@@ -3,7 +3,9 @@ package com.pedrodev.tabletrack
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.pedrodev.tabletrack.Functions.alert
 import com.pedrodev.tabletrack.Functions.moveTo
@@ -11,12 +13,30 @@ import com.pedrodev.tabletrack.databinding.ActivityTableMapBinding
 
 class TableMapActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTableMapBinding
+    private val auth = FirebaseAuth.getInstance()
+    private val db = FirebaseFirestore.getInstance()
+    val user = auth.currentUser
+    val userID = user?.uid
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTableMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+
+        db.collection("users").document(userID.toString()).get()
+            .addOnSuccessListener { userDocument ->
+                val restaurantID = userDocument.getString("memberOf")
+                if (restaurantID != null) {
+                    db.collection("restaurants").document(restaurantID).get()
+                        .addOnSuccessListener { restDocument ->
+                            val restaurantName = restDocument.getString("name")
+                            if (restaurantName != null) {
+                                binding.title.text = restaurantName
+                            }
+                        }
+                }
+            }
 
         binding.optionsMenu.setOnClickListener {
             val optionsMenu = PopupMenu(this, binding.optionsMenu)

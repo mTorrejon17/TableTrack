@@ -14,6 +14,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.pedrodev.tabletrack.Functions.alert
+import com.pedrodev.tabletrack.Functions.closeKeyboard
 import com.pedrodev.tabletrack.Functions.moveTo
 import com.pedrodev.tabletrack.databinding.ActivitySelectRoleBinding
 import kotlin.random.Random
@@ -42,7 +43,6 @@ class SelectRoleActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         val email = Functions.getString(this, "temp_data", "email")
         val password = Functions.getString(this, "temp_data", "password")
 
-
         // ESTO PONE LAS OPCIONES DEL strings.xml EN EL SPINNER
         val spinner: Spinner = binding.spinnerRole
         spinner.onItemSelectedListener = this
@@ -61,65 +61,65 @@ class SelectRoleActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         }
 
         binding.buttonSignUp.setOnClickListener {
+            closeKeyboard()
             binding.back.isClickable = false
             binding.linearLayout.visibility = View.GONE
             binding.linearLayoutNameCode.visibility = View.GONE
             binding.progressBar.visibility = View.VISIBLE
 
             val db = FirebaseFirestore.getInstance()
-            var user = auth.currentUser
-            var userID = user?.uid
             var stopFunction = false
 
-            val task = when (roleInt) {
-                1 -> {
-                    restaurantName = binding.editTextNameOrCode.text.toString().trim()
-                    restaurantCode = generateRandomCodeRestaurant()
-                    val userData = hashMapOf(
-                        "username" to username,
-                        "email" to email,
-                        "role" to roleString,
-                        "memberOf" to restaurantCode,
-                        "timeCreation" to Timestamp.now()
-                    )
-                    val restaurantData = hashMapOf(
-                        "name" to restaurantName,
-                        "adminID" to userID,
-                        "timeCreation" to Timestamp.now()
-                    )
+            if (roleInt != 1) {
+                restaurantCode = binding.editTextNameOrCode.text.toString().trim()
+                val validCodeTask = db.collection("restaurants").document(restaurantCode).get()
+                    .addOnSuccessListener {
+                        if (it.exists()) {
+                            stopFunction = false
+                        } else {
+                            stopFunction = true
+                        }
+                    }
 
-                    db.collection("restaurants").document(restaurantCode).set(restaurantData)
-                        .addOnSuccessListener {
-                            Log.d("TAG",
-                                "RESTAURANTE AGREGADO A DB, name: $restaurantName | code: $restaurantCode ")
+                Tasks.whenAllComplete(validCodeTask)
+                    .addOnCompleteListener {
+                        if (stopFunction) {
+                            binding.root.alert("Código ingresado no existe.")
+                            return@addOnCompleteListener
                         }
-                        .addOnFailureListener {
-                            Log.d("ERROR",
-                                "FALLÓ agregar restaurant a db")
-                        }
+                    }
+            }
 
-                    db.collection("users").document(userID.toString()).set(userData)
-                        .addOnSuccessListener {
-                            Log.d("TAG",
-                                "ADMIN AGREGADO A DB, name: $username | member of: $restaurantCode ")
-                        }
-                        .addOnFailureListener {
-                            Log.d("ERROR",
-                                "FALLÓ agregar admin a db")
-                        }
+            val authTask = auth.createUserWithEmailAndPassword(email.toString(), password.toString())
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        val user = auth.currentUser
+                        val userID = user?.uid
+                    } else {
+                        binding.root.alert(getString(R.string.failed_sign_up))
+                        stopFunction = true
+                    }
                 }
-                2, 3 -> {
-                    restaurantCode = binding.editTextNameOrCode.text.toString().trim()
-                    db.collection("restaurants").document(restaurantCode).get()
-                        .addOnSuccessListener { document ->
-                            if (!document.exists()) {
-                                Log.e("ERROR", "ERROOOR El código $restaurantCode no está registrado")
-                                binding.root.alert("Código ingresado no existe.")
-                                binding.linearLayout.visibility = View.VISIBLE
-                                binding.linearLayoutNameCode.visibility = View.VISIBLE
-                                binding.progressBar.visibility = View.GONE
-                                stopFunction = true
-                            } else {
+
+            Tasks.whenAllComplete(authTask)
+                .addOnCompleteListener {
+                    if (stopFunction) {
+                        val user = auth.currentUser
+                        user?.delete()
+
+                        Log.e("ERROR", "EL CÓDIGO INGRESADO FALLÓOOO")
+                        binding.back.isClickable = true
+                        binding.linearLayout.visibility = View.VISIBLE
+                        binding.linearLayoutNameCode.visibility = View.VISIBLE
+                        binding.progressBar.visibility = View.GONE
+                        return@addOnCompleteListener
+                    } else {
+                        val user = auth.currentUser
+                        val userID = user?.uid
+                        when (roleInt) {
+                            1 -> {
+                                restaurantName = binding.editTextNameOrCode.text.toString().trim()
+                                restaurantCode = generateRandomCodeRestaurant()
                                 val userData = hashMapOf(
                                     "username" to username,
                                     "email" to email,
@@ -127,56 +127,69 @@ class SelectRoleActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                                     "memberOf" to restaurantCode,
                                     "timeCreation" to Timestamp.now()
                                 )
+                                val restaurantData = hashMapOf(
+                                    "name" to restaurantName,
+                                    "adminID" to userID,
+                                    "timeCreation" to Timestamp.now()
+                                )
+
+                                db.collection("restaurants").document(restaurantCode).set(restaurantData)
+                                    .addOnSuccessListener {
+                                        Log.d("TAG",
+                                            "RESTAURANTE AGREGADO A DB, name: $restaurantName | code: $restaurantCode ")
+                                    }
+                                    .addOnFailureListener {
+                                        Log.d("ERROR",
+                                            "FALLÓ agregar restaurant a db")
+                                    }
 
                                 db.collection("users").document(userID.toString()).set(userData)
                                     .addOnSuccessListener {
-                                        Log.d("TAG", "USER $username rol $roleString añadido correctamente a la db")
+                                        Log.d("TAG",
+                                            "ADMIN AGREGADO A DB, name: $username | member of: $restaurantCode ")
                                     }
                                     .addOnFailureListener {
-                                        Log.e("ERROR", "FALLÓ agregar a user $username a la db")
+                                        Log.d("ERROR",
+                                            "FALLÓ agregar admin a db")
+                                    }
+                            }
+                            2, 3 -> {
+                                restaurantCode = binding.editTextNameOrCode.text.toString().trim()
+                                db.collection("restaurants").document(restaurantCode).get()
+                                    .addOnSuccessListener { document ->
+                                        if (!document.exists()) {
+                                            Log.e("ERROR", "ERROOOR El código $restaurantCode no está registrado")
+                                            binding.root.alert("Código ingresado no existe.")
+                                            binding.linearLayout.visibility = View.VISIBLE
+                                            binding.linearLayoutNameCode.visibility = View.VISIBLE
+                                            binding.progressBar.visibility = View.GONE
+                                        } else {
+                                            val userData = hashMapOf(
+                                                "username" to username,
+                                                "email" to email,
+                                                "role" to roleString,
+                                                "memberOf" to restaurantCode,
+                                                "timeCreation" to Timestamp.now()
+                                            )
+
+                                            db.collection("users").document(userID.toString()).set(userData)
+                                                .addOnSuccessListener {
+                                                    Log.d("TAG", "USER $username rol $roleString añadido correctamente a la db")
+                                                }
+                                                .addOnFailureListener {
+                                                    Log.e("ERROR", "FALLÓ agregar a user $username a la db")
+                                                }
+                                        }
+                                    }
+                                    .addOnFailureListener {
+                                        Log.e("TAG", "FAILURELISTENER")
                                     }
                             }
                         }
-                        .addOnFailureListener {
-                            Log.e("TAG", "FAILURELISTENER")
-                            stopFunction = true
-                        }
-                }
-                else -> null
-            }
-
-            task?.let {
-                Tasks.whenAllComplete(task)
-                    .addOnCompleteListener {
-                    if (stopFunction) {
-                        Log.e("ERROR", "EL CÓDIGO INGRESADO FALLÓOOO")
-                        return@addOnCompleteListener
-                    } else {
-                        auth.createUserWithEmailAndPassword(email.toString(), password.toString())
-                            .addOnCompleteListener(this) { task ->
-                                if (task.isSuccessful) {
-                                    user = auth.currentUser
-                                    userID = user?.uid
-
-                                    if (roleInt == 1) {
-                                    db.collection("restaurants").document(restaurantCode)
-                                        .update("adminID", userID)
-                                        .addOnSuccessListener {
-                                            Log.d("TAG", "ACTUALIZACIÓN adminID SE REALIZÓ")
-                                        }
-                                        .addOnFailureListener {
-                                            Log.e("ERROR", "NO SE PUDO ACTUALIZAR adminID")
-                                        }
-                                    }
-
-                                    this.moveTo(TableMapActivity::class.java)
-                                } else {
-                                    binding.root.alert(getString(R.string.failed_database))
-                                }
-                            }
+                        Functions.clearData(this, "temp_data")
+                        this.moveTo(TableMapActivity::class.java)
                     }
                 }
-            }
         }
     }
 

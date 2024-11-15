@@ -43,7 +43,7 @@
 
     <string name="required">Campo obligatorio</string>
     <string name="failed_login">Ingreso fallido.</string>
-    <string name="failed_sign_up">Registro fallido.</string>
+    <string name="failed_sign_up">El email que intenta ingresar ya se encuentra en nuestros registros.</string>
     <string name="failed_database">Error en la base de datos.</string>
     <string name="please_all">Por favor, ingrese todos los datos requeridos.</string>
     <string name="please_email">Por favor, ingrese un correo electrónico válido.</string>

@@ -23,21 +23,20 @@ class SettingsTeamActivity : AppCompatActivity() {
         val userID = auth.currentUser?.uid
 
         userID?.let {
-            db.collection("restaurants").whereEqualTo("adminID", userID).get()
-                .addOnSuccessListener { querySnapshot ->
-                    if (!querySnapshot.isEmpty) {
-                        for (document in querySnapshot) {
-                            val restaurantName = document.getString("name")
-                            val restaurantCode = document.id
+            db.collection("users").document(userID).get()
+                .addOnSuccessListener { userDocument ->
+                    val memberOf = userDocument.getString("memberOf")
+                    if (memberOf != null) {
+                        db.collection("restaurants").document(memberOf).get()
+                            .addOnSuccessListener { restaurantDocument ->
+                                val restaurantName = restaurantDocument.getString("name")
 
-                            binding.restaurantName.text = restaurantName
-                            binding.restaurantCode.text = restaurantCode
-                        }
-                        binding.progressBar.visibility = View.GONE
+                                binding.restaurantName.text = restaurantName
+                                binding.restaurantCode.text = memberOf
+
+                                binding.progressBar.visibility = View.GONE
+                            }
                     }
-                }.addOnFailureListener {
-                    binding.root.alert(getString(R.string.failed_database))
-                    binding.progressBar.visibility = View.GONE
                 }
         }
 

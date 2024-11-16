@@ -1,6 +1,8 @@
 package com.pedrodev.tabletrack
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import com.google.firebase.auth.FirebaseAuth
@@ -88,9 +90,31 @@ class TableListActivity : AppCompatActivity() {
                     else -> false
                 }
             }
-
             fabOptions.show()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        db.collection("users").document(userID.toString()).get()
+            .addOnSuccessListener { userDocument ->
+                val userRole = userDocument.getString("role")
+                when (userRole) {
+                    "admin" -> {
+                        binding.fabTables.visibility = View.VISIBLE
+                    }
+                    else -> {
+                        binding.fabTables.visibility = View.GONE
+                    }
+                }
+            }
+            .addOnFailureListener {
+                Log.e("ERROR", "error OnStart TableListActivity")
+            }
+
+
 
     }
+
 }

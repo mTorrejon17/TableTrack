@@ -23,6 +23,7 @@
     <string name="title_forgot_password"><b>Restablecer contraseña</b></string>
     <string name="title_settings">Ajustes</string>
     <string name="title_views"><b>TITULO</b></string>
+    <string name="title_create_room">Crear sala</string>
     <string name="option_edit_tables">Editar mesas</string>
     <string name="option_change_view_list">Ver como lista</string>
     <string name="option_change_view_map">Ver como mapa</string>

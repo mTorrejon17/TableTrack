@@ -1,6 +1,8 @@
 package com.pedrodev.tabletrack
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import com.google.firebase.auth.FirebaseAuth
@@ -23,6 +25,8 @@ class TableMapActivity : AppCompatActivity() {
         binding = ActivityTableMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+
+        binding.fabTables.visibility = View.GONE
 
         db.collection("users").document(userID.toString()).get()
             .addOnSuccessListener { userDocument ->
@@ -73,12 +77,12 @@ class TableMapActivity : AppCompatActivity() {
 
         binding.fabTables.setOnClickListener {
             val fabOptions = PopupMenu(this, binding.fabTables)
-
             fabOptions.menuInflater.inflate(R.menu.fab_add_menu, fabOptions.menu)
 
             fabOptions.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.fab_add_room -> {
+                        this.moveTo(CreateRoomActivity::class.java)
                         true
                     }
                     R.id.fab_add_table -> {
@@ -87,10 +91,26 @@ class TableMapActivity : AppCompatActivity() {
                     else -> false
                 }
             }
-
             fabOptions.show()
         }
-
     } // FIN OnCreate
 
+    override fun onStart() {
+        super.onStart()
+        db.collection("users").document(userID.toString()).get()
+            .addOnSuccessListener { userDocument ->
+                val userRole = userDocument.getString("role")
+                when (userRole) {
+                    "admin" -> {
+                        binding.fabTables.visibility = View.VISIBLE
+                    }
+                    else -> {
+                        binding.fabTables.visibility = View.GONE
+                    }
+                }
+            }
+            .addOnFailureListener {
+                Log.e("ERROR", "error OnStart TableListActivity")
+            }
+    }
 }

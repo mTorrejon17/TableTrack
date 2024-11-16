@@ -15,7 +15,7 @@
             android:name=".SettingsTeamActivity"
             android:exported="false" />
         <activity
-            android:name=".CreateRestaurantActivity"
+            android:name=".CreateRoomActivity"
             android:exported="false" />
         <activity
             android:name=".SelectRoleActivity"

@@ -84,4 +84,15 @@
         app:layout_constraintBottom_toBottomOf="@id/toolbar_guideline_floating"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <androidx.gridlayout.widget.GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="32dp"
+        android:background="@drawable/edittext_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        >
+
+    </androidx.gridlayout.widget.GridLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

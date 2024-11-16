@@ -38,10 +38,7 @@ class SettingsProfileActivity : AppCompatActivity() {
                     binding.root.alert(getString(R.string.failed_database))
                     binding.progressBarProfile.visibility = View.GONE
                 }
-
-
         }
-
 
         binding.back.setOnClickListener {
             this.moveTo(SettingsActivity::class.java)

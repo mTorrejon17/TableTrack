@@ -79,8 +79,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
-
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"

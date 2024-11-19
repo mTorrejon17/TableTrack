@@ -12,6 +12,8 @@
     <string name="text_select_role">Selecciona el rol que tendrás en el local.</string>
     <string name="text_restaurant_name">Escribe un nombre para tu restaurante.</string>
     <string name="text_restaurant_code">Para unirte, ingresa el código del restaurante. Solicítalo al administrador.</string>
+    <string name="text_room_size">Selecciona tamaño de la sala.</string>
+    <string name="text_room_name">Ingrese nombre de la sala.</string>
     <string name="terms_and_conditions">He leído y acepto los <font color='#E65100'>Términos y Condiciones</font>."</string>
     <string name="button_sign_up">Registrarse</string>
     <string name="button_login">Ingresar</string>

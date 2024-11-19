@@ -3,8 +3,11 @@ package com.pedrodev.tabletrack
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.GridLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -41,6 +44,43 @@ class TableMapActivity : AppCompatActivity() {
                         }
                 }
             }
+
+        val gridLayout = binding.gridLayout
+
+        gridLayout.rowCount = 3
+        gridLayout.columnCount = 3
+
+        fun addTable(row: Int, col: Int, text: String, size: Int) {
+            val button = Button(this).apply {
+                this.text = text
+                background = ContextCompat.getDrawable(
+                    this@TableMapActivity,
+                    R.drawable.vector_table_green
+                )
+
+                layoutParams = GridLayout.LayoutParams().apply {
+                    width = Functions.dpToPx(size, this@TableMapActivity)
+                    height = Functions.dpToPx(size, this@TableMapActivity)
+                    rowSpec = GridLayout.spec(row)
+                    columnSpec = GridLayout.spec(col)
+                    setMargins(Functions.dpToPx(4, this@TableMapActivity),
+                        Functions.dpToPx(4, this@TableMapActivity),
+                        Functions.dpToPx(4, this@TableMapActivity),
+                        Functions.dpToPx(4, this@TableMapActivity))
+                }
+                setOnClickListener {
+                    this.alert("botón en fila $row, columna $col")
+                }
+            }
+            gridLayout.addView(button)
+        }
+
+        val tableSize = 100
+        addTable(0, 0, "botón (0,0)", tableSize)
+        addTable(2, 1, "botón (2,1)", tableSize)
+        addTable(1, 1, "botón (1,1)", tableSize)
+        addTable(0, 2, "botón (0,2)", tableSize)
+
 
         binding.optionsMenu.setOnClickListener {
             val optionsMenu = PopupMenu(this, binding.optionsMenu)

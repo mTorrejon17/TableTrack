@@ -12,11 +12,11 @@ object Functions {
 
     // NAVEGACIÓN ****************************************************************************
 
+    // ejemplo:     moveTo(LoginActivity::class.java)
     fun Context.moveTo(activity: Class<*>) {
         val intent = Intent(this, activity)
         startActivity(intent)
     }
-    // ejemplo:     moveTo(LoginActivity::class.java)
 
     // CERRAR TECLADO EN PANTALLA ************************************************************
     fun Activity.closeKeyboard() {
@@ -29,10 +29,12 @@ object Functions {
 
 
     // MOSTRAR MENSAJES AL USUARIO ***********************************************************
-    // ej:    alert("Ingreso fallido.")
+    // ej:    this.alert("Ingreso fallido.")
+    // ej:    binding.root.alert("ola")
     fun View.alert(message: String) {
         Snackbar.make(this, message, Snackbar.LENGTH_SHORT).show()
     }
+
     /*
     fun Context.alert(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
@@ -72,6 +74,18 @@ object Functions {
     fun getString(context: Context, fileName: String, dataName: String): String? {
         val sharedPreferences = context.getSharedPreferences(fileName, Context.MODE_PRIVATE)
         return sharedPreferences.getString(dataName, null)
+    }
+
+    fun saveInt(context: Context, fileName: String, dataName: String, value: Int) {
+        val sharedPreferences = context.getSharedPreferences(fileName, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putInt(dataName, value)
+        editor.apply()
+    }
+
+    fun getInt(context: Context, fileName: String, dataName: String, defaultValue: Int = 0): Int {
+        val sharedPreferences = context.getSharedPreferences(fileName, Context.MODE_PRIVATE)
+        return sharedPreferences.getInt(dataName, defaultValue)
     }
 
     fun saveBoolean(context: Context, fileName: String, dataName: String, value: Boolean) {

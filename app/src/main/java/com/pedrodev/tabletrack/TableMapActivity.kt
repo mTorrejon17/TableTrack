@@ -22,6 +22,8 @@ class TableMapActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     val user = auth.currentUser
     val userID = user?.uid
+    val gridLayout = binding.gridLayout
+    val tableSize = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,41 +47,21 @@ class TableMapActivity : AppCompatActivity() {
                 }
             }
 
-        val gridLayout = binding.gridLayout
 
+        // AQUÍ CAMBIAR TAMAÑO DEL GRIDLAYOUT DEPENDIENDO DE LO SELECCIONADO
+        //
+        //
         gridLayout.rowCount = 3
         gridLayout.columnCount = 3
 
-        fun addTable(row: Int, col: Int, text: String, size: Int) {
-            val button = Button(this).apply {
-                this.text = text
-                background = ContextCompat.getDrawable(
-                    this@TableMapActivity,
-                    R.drawable.vector_table_green
-                )
 
-                layoutParams = GridLayout.LayoutParams().apply {
-                    width = Functions.dpToPx(size, this@TableMapActivity)
-                    height = Functions.dpToPx(size, this@TableMapActivity)
-                    rowSpec = GridLayout.spec(row)
-                    columnSpec = GridLayout.spec(col)
-                    setMargins(Functions.dpToPx(4, this@TableMapActivity),
-                        Functions.dpToPx(4, this@TableMapActivity),
-                        Functions.dpToPx(4, this@TableMapActivity),
-                        Functions.dpToPx(4, this@TableMapActivity))
-                }
-                setOnClickListener {
-                    this.alert("botón en fila $row, columna $col")
-                }
-            }
-            gridLayout.addView(button)
-        }
 
-        val tableSize = 100
-        addTable(0, 0, "botón (0,0)", tableSize)
-        addTable(2, 1, "botón (2,1)", tableSize)
-        addTable(1, 1, "botón (1,1)", tableSize)
-        addTable(0, 2, "botón (0,2)", tableSize)
+
+        addTable(0, 0, "botón (0,0)", tableSize, Status.AVAILABLE)
+        addTable(2, 1, "botón (2,1)", tableSize, Status.UNAVAILABLE)
+        addTable(1, 1, "botón (1,1)", tableSize, Status.AVAILABLE)
+        addTable(0, 2, "botón (0,2)", tableSize, Status.UNAVAILABLE)
+
 
 
         binding.optionsMenu.setOnClickListener {
@@ -153,4 +135,31 @@ class TableMapActivity : AppCompatActivity() {
                 Log.e("ERROR", "error OnStart TableListActivity")
             }
     }
+
+    private fun addTable(row: Int, col: Int, text: String, size: Int, status: Status) {
+        val button = Button(this).apply {
+            this.text = text
+            background = ContextCompat.getDrawable(
+                this@TableMapActivity,
+                if (status == Status.AVAILABLE) {
+                    R.drawable.vector_table_green
+                } else {
+                    R.drawable.vector_table_red
+                }
+            )
+
+            layoutParams = GridLayout.LayoutParams().apply {
+                width = Functions.dpToPx(size, this@TableMapActivity)
+                height = Functions.dpToPx(size, this@TableMapActivity)
+                rowSpec = GridLayout.spec(row)
+                columnSpec = GridLayout.spec(col)
+                setMargins(Functions.dpToPx(4, this@TableMapActivity),
+                    Functions.dpToPx(4, this@TableMapActivity),
+                    Functions.dpToPx(4, this@TableMapActivity),
+                    Functions.dpToPx(4, this@TableMapActivity))
+            }
+        }
+        gridLayout.addView(button)
+    }
+
 }

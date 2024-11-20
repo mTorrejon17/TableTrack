@@ -9,6 +9,20 @@
     tools:context=".TableMapActivity">
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_3x3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_3x4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8"/>
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/toolbar_guideline_floating"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

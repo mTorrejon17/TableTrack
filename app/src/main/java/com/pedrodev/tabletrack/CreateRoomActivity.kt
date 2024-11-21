@@ -45,7 +45,6 @@ class CreateRoomActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
             this.moveTo(TableMapActivity::class.java)
             finish()
         }
-
     }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {

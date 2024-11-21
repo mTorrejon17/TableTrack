@@ -165,6 +165,7 @@ class TableMapActivity : AppCompatActivity() {
     }
      */
 
+
     private fun addTable(row: Int, col: Int, text: String, size: Int, status: Status) {
         val button = Button(this).apply {
             this.text = text

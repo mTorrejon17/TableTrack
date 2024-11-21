@@ -15,15 +15,15 @@ import com.google.firebase.ktx.Firebase
 import com.pedrodev.tabletrack.Functions.alert
 import com.pedrodev.tabletrack.Functions.moveTo
 import com.pedrodev.tabletrack.databinding.ActivityTableMapBinding
+import kotlinx.coroutines.tasks.await
 
 class TableMapActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTableMapBinding
-    private val auth = FirebaseAuth.getInstance()
+    private var auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
     private val user = auth.currentUser
     private val userID = user?.uid
     private lateinit var gridLayout: GridLayout
-
     private val tableSize = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,16 +32,16 @@ class TableMapActivity : AppCompatActivity() {
         gridLayout = binding.gridLayout
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+        auth = Firebase.auth
 
+        binding.gridLayout.visibility = View.GONE
         binding.fabTables.visibility = View.GONE
 
         restaurantData()
 
         binding.optionsMenu.setOnClickListener {
             val optionsMenu = PopupMenu(this, binding.optionsMenu)
-
             optionsMenu.menuInflater.inflate(R.menu.table_view_menu, optionsMenu.menu)
-
             optionsMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.option_edit_tables -> {
@@ -77,7 +77,21 @@ class TableMapActivity : AppCompatActivity() {
             fabOptions.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.fab_add_room -> {
-                        this.moveTo(CreateRoomActivity::class.java)
+                        db.collection("users").document(userID.toString()).get()
+                            .addOnSuccessListener { userDoc ->
+                                val restaurantID = userDoc.getString("memberOf")
+                                if (restaurantID != null) {
+                                    db.collection("restaurants").document(restaurantID).collection("rooms").get()
+                                        .addOnSuccessListener { documents ->
+                                            val restaurantEmpty = (documents.isEmpty)
+                                            if (restaurantEmpty) {
+                                                this.moveTo(CreateRoomActivity::class.java)
+                                            } else {
+                                                binding.root.alert("Límite de 1 sala por restaurante.")
+                                            }
+                                        }
+                                }
+                            }
                         true
                     }
                     R.id.fab_add_table -> {
@@ -88,6 +102,9 @@ class TableMapActivity : AppCompatActivity() {
             }
             fabOptions.show()
         }
+
+
+
     } // FIN OnCreate
 
     override fun onStart() {
@@ -126,6 +143,9 @@ class TableMapActivity : AppCompatActivity() {
                             if (!it.isEmpty) {
                                 val roomID = it.documents[0].id
                                 roomData(restaurantID, roomID)
+                                binding.gridLayout.visibility = View.VISIBLE
+                            } else {
+                                binding.gridLayout.visibility = View.GONE
                             }
                         }
                 }

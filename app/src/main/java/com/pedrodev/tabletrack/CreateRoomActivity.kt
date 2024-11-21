@@ -9,9 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.pedrodev.tabletrack.Functions.alert
+import com.pedrodev.tabletrack.Functions.moveTo
 import com.pedrodev.tabletrack.databinding.ActivityCreateRoomBinding
-import com.pedrodev.tabletrack.databinding.ActivitySelectRoleBinding
 
 class CreateRoomActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityCreateRoomBinding
@@ -40,12 +39,11 @@ class CreateRoomActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
         binding.okCreateRoom.setOnClickListener {
             roomName = binding.editTextRoomName.text.toString().trim()
-            Functions.saveString(this, "createroom", "roomName", roomName)
-            Functions.saveInt(this, "createroom", "rows", rows)
-            Functions.saveInt(this, "createroom", "columns", columns)
+        }
 
-
-
+        binding.back.setOnClickListener {
+            this.moveTo(TableMapActivity::class.java)
+            finish()
         }
 
     }
@@ -59,7 +57,6 @@ class CreateRoomActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
-        Unit
     }
 
 }

@@ -20,49 +20,22 @@ class TableMapActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTableMapBinding
     private val auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
-    val user = auth.currentUser
-    val userID = user?.uid
-    val gridLayout = binding.gridLayout
-    val tableSize = 100
+    private val user = auth.currentUser
+    private val userID = user?.uid
+    private lateinit var gridLayout: GridLayout
+
+    private val tableSize = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTableMapBinding.inflate(layoutInflater)
+        gridLayout = binding.gridLayout
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
         binding.fabTables.visibility = View.GONE
 
-        db.collection("users").document(userID.toString()).get()
-            .addOnSuccessListener { userDocument ->
-                val restaurantID = userDocument.getString("memberOf")
-                if (restaurantID != null) {
-                    db.collection("restaurants").document(restaurantID).get()
-                        .addOnSuccessListener { restDocument ->
-                            val restaurantName = restDocument.getString("name")
-                            if (restaurantName != null) {
-                                binding.title.text = restaurantName
-                            }
-                        }
-                }
-            }
-
-
-        // AQUÍ CAMBIAR TAMAÑO DEL GRIDLAYOUT DEPENDIENDO DE LO SELECCIONADO
-        //
-        //
-        gridLayout.rowCount = 3
-        gridLayout.columnCount = 3
-
-
-
-
-        addTable(0, 0, "botón (0,0)", tableSize, Status.AVAILABLE)
-        addTable(2, 1, "botón (2,1)", tableSize, Status.UNAVAILABLE)
-        addTable(1, 1, "botón (1,1)", tableSize, Status.AVAILABLE)
-        addTable(0, 2, "botón (0,2)", tableSize, Status.UNAVAILABLE)
-
-
+        restaurantData()
 
         binding.optionsMenu.setOnClickListener {
             val optionsMenu = PopupMenu(this, binding.optionsMenu)
@@ -136,6 +109,62 @@ class TableMapActivity : AppCompatActivity() {
             }
     }
 
+    private fun restaurantData() {
+        db.collection("users").document(userID.toString()).get()
+            .addOnSuccessListener { userDocument ->
+                val restaurantID = userDocument.getString("memberOf")
+                if (restaurantID != null) {
+                    db.collection("restaurants").document(restaurantID).get()
+                        .addOnSuccessListener { restDocument ->
+                            val restaurantName = restDocument.getString("name")
+                            if (restaurantName != null) {
+                                binding.title.text = restaurantName
+                            }
+                        }
+                    db.collection("restaurants").document(restaurantID).collection("rooms").get()
+                        .addOnSuccessListener {
+                            if (!it.isEmpty) {
+                                val roomID = it.documents[0].id
+                                roomData(restaurantID, roomID)
+                            }
+                        }
+                }
+            }
+    }
+
+    private fun roomData(restaurantID: String, roomID: String) {
+        db.collection("restaurants").document(restaurantID)
+            .collection("rooms").document(roomID).get()
+            .addOnSuccessListener {
+                val rowCount = it.getLong("rows")?.toInt() ?: 3
+                val colCount = it.getLong("columns")?.toInt() ?: 3
+                binding.gridLayout.rowCount = rowCount
+                binding.gridLayout.columnCount = colCount
+
+                updateChanges(restaurantID, roomID)
+            }
+    }
+
+    // YA NO SE USA ESTA FUNCIÓN, SE CAMBIÓ POR updateChanges()
+    /*
+    private fun tablesData(restaurantID: String, roomID: String) {
+        db.collection("restaurants").document(restaurantID)
+            .collection("rooms").document(roomID)
+            .collection("tables").get()
+            .addOnSuccessListener { tables ->
+                for (table in tables) {
+                    val row = table.getLong("coordRow")?.toInt() ?:0
+                    val col = table.getLong("coordCol")?.toInt() ?:0
+                    val tableNumber = table.getString("number") ?:0
+                    val isAvailable = table.getBoolean("isAvailable") ?: true
+                    val status = if (isAvailable) Status.AVAILABLE else Status.UNAVAILABLE
+
+                    addTable(row, col, tableNumber.toString(), tableSize, status)
+                }
+            }
+    }
+     */
+
     private fun addTable(row: Int, col: Int, text: String, size: Int, status: Status) {
         val button = Button(this).apply {
             this.text = text
@@ -162,4 +191,29 @@ class TableMapActivity : AppCompatActivity() {
         gridLayout.addView(button)
     }
 
+    private fun updateChanges(restaurantID: String, roomID: String) {
+        db.collection("restaurants").document(restaurantID)
+            .collection("rooms").document(roomID)
+            .collection("tables")
+            .addSnapshotListener { snapshots, error ->
+                if (error != null) {
+                    return@addSnapshotListener
+                }
+
+                if (snapshots != null) {
+                    binding.gridLayout.removeAllViews()
+                    for (table in snapshots) {
+                        val row = table.getLong("coordRow")?.toInt() ?:0
+                        val col = table.getLong("coordCol")?.toInt() ?:0
+                        val tableNumber = table.getString("number") ?:0
+                        val isAvailable = table.getBoolean("isAvailable") ?: true
+                        val status = if (isAvailable) Status.AVAILABLE else Status.UNAVAILABLE
+
+                        addTable(row, col, tableNumber.toString(), tableSize, status)
+                    }
+
+                }
+            }
+
+    }
 }

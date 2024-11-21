@@ -6,6 +6,7 @@
     <string name="hint_email">Correo electrónico</string>
     <string name="hint_restaurant_name">Nombre del Restaurante</string>
     <string name="hint_restaurant_code">Código del Restaurante</string>
+    <string name="hint_table_number">Número de mesa</string>
     <string name="forgot_password"><u>Olvidé mi contraseña</u></string>
     <string name="text_sign_up">¿No tienes cuenta?</string>
     <string name="text_forgot_password">Proporciona tu correo electrónico para restablecer la contraseña.</string>
@@ -14,6 +15,9 @@
     <string name="text_restaurant_code">Para unirte, ingresa el código del restaurante. Solicítalo al administrador.</string>
     <string name="text_room_size">Selecciona tamaño de la sala.</string>
     <string name="text_room_name">Ingrese nombre de la sala.</string>
+    <string name="text_table_number">Ingrese número o nombre de mesa.</string>
+    <string name="row">Fila</string>
+    <string name="column">Columna</string>
     <string name="terms_and_conditions">He leído y acepto los <font color='#E65100'>Términos y Condiciones</font>."</string>
     <string name="button_sign_up">Registrarse</string>
     <string name="button_login">Ingresar</string>
@@ -88,6 +92,18 @@
     <string-array name="spinner_room_size">
         <item>3x3</item>
         <item>3x4</item>
+    </string-array>
+
+    <string-array name="rows_columns_3x3">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="rows_columns_3x4">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
 
     <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet tincidunt enim, quis vulputate nulla fringilla ac. Vestibulum faucibus nunc sit amet enim vulputate, at rhoncus tortor pellentesque. Aenean sit amet tristique libero. Maecenas at dui et mi iaculis rhoncus. Nullam tincidunt ornare malesuada. Donec blandit lectus nec fringilla ornare. In aliquet varius leo, in convallis nulla aliquam quis.</string>

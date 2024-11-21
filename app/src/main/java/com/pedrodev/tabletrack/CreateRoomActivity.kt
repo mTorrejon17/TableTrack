@@ -79,7 +79,6 @@ class CreateRoomActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         when (pos) {
             0 -> rows = 3
             1 -> rows = 4
-            2 -> rows = 5
         }
     }
 

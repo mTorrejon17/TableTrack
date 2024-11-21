@@ -15,7 +15,6 @@ import com.google.firebase.ktx.Firebase
 import com.pedrodev.tabletrack.Functions.alert
 import com.pedrodev.tabletrack.Functions.moveTo
 import com.pedrodev.tabletrack.databinding.ActivityTableMapBinding
-import kotlinx.coroutines.tasks.await
 
 class TableMapActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTableMapBinding
@@ -81,7 +80,8 @@ class TableMapActivity : AppCompatActivity() {
                             .addOnSuccessListener { userDoc ->
                                 val restaurantID = userDoc.getString("memberOf")
                                 if (restaurantID != null) {
-                                    db.collection("restaurants").document(restaurantID).collection("rooms").get()
+                                    db.collection("restaurants").document(restaurantID)
+                                        .collection("rooms").get()
                                         .addOnSuccessListener { documents ->
                                             val restaurantEmpty = (documents.isEmpty)
                                             if (restaurantEmpty) {
@@ -95,6 +95,7 @@ class TableMapActivity : AppCompatActivity() {
                         true
                     }
                     R.id.fab_add_table -> {
+                        this.moveTo(CreateTableActivity::class.java)
                         true
                     }
                     else -> false

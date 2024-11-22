@@ -92,7 +92,21 @@ class TableMapActivity : AppCompatActivity() {
                         true
                     }
                     R.id.fab_add_table -> {
-                        this.moveTo(CreateTableActivity::class.java)
+                        db.collection("users").document(userID.toString()).get()
+                            .addOnSuccessListener { userDoc ->
+                                val restaurantID = userDoc.getString("memberOf")
+                                if (restaurantID != null) {
+                                    db.collection("restaurants").document(restaurantID)
+                                        .collection("rooms").get()
+                                        .addOnSuccessListener { roomDoc ->
+                                            if (roomDoc.isEmpty) {
+                                                binding.root.alert("No hay sala creada todavía")
+                                            } else {
+                                                this.moveTo(CreateTableActivity::class.java)
+                                            }
+                                        }
+                                }
+                            }
                         true
                     }
                     else -> false
@@ -213,7 +227,6 @@ class TableMapActivity : AppCompatActivity() {
                 } else if (status == Status.UNAVAILABLE) {
                     currentStatus.title = "Ocupado"
                 }
-
 
                 tableOptions.setOnMenuItemClickListener { item ->
                     when (item.itemId) {

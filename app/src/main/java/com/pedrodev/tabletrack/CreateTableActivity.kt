@@ -44,16 +44,6 @@ class CreateTableActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
                                     val rows = roomDoc.getLong("rows")?.toInt() ?: 0
 
                                     if (rows == 3) {
-                                        val spinnerColumn = binding.spinnerColumn
-                                        spinnerColumn.onItemSelectedListener = this
-                                        ArrayAdapter.createFromResource(
-                                            this,
-                                            R.array.rows_columns_3x3,
-                                            android.R.layout.simple_spinner_item
-                                        ).also { adapter ->
-                                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                                            spinnerColumn.adapter = adapter
-                                        }
                                         val spinnerRow = binding.spinnerRow
                                         spinnerRow.onItemSelectedListener = this
                                         ArrayAdapter.createFromResource(
@@ -65,16 +55,6 @@ class CreateTableActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
                                             spinnerRow.adapter = adapter
                                         }
                                     } else if (rows == 4) {
-                                        val spinnerColumn = binding.spinnerColumn
-                                        spinnerColumn.onItemSelectedListener = this
-                                        ArrayAdapter.createFromResource(
-                                            this,
-                                            R.array.rows_columns_3x4,
-                                            android.R.layout.simple_spinner_item
-                                        ).also { adapter ->
-                                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                                            spinnerColumn.adapter = adapter
-                                        }
                                         val spinnerRow = binding.spinnerRow
                                         spinnerRow.onItemSelectedListener = this
                                         ArrayAdapter.createFromResource(
@@ -85,6 +65,16 @@ class CreateTableActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
                                             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                                             spinnerRow.adapter = adapter
                                         }
+                                    }
+                                    val spinnerColumn = binding.spinnerColumn
+                                    spinnerColumn.onItemSelectedListener = this
+                                    ArrayAdapter.createFromResource(
+                                        this,
+                                        R.array.rows_columns_3x3,
+                                        android.R.layout.simple_spinner_item
+                                    ).also { adapter ->
+                                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                                        spinnerColumn.adapter = adapter
                                     }
                                 }
                             }

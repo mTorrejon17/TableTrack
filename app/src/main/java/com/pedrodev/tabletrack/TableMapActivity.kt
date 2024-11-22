@@ -154,6 +154,7 @@ class TableMapActivity : AppCompatActivity() {
                                 roomData(restaurantID, roomID)
                                 binding.gridLayout.visibility = View.VISIBLE
                             } else {
+
                                 binding.gridLayout.visibility = View.GONE
                             }
                         }
@@ -165,10 +166,12 @@ class TableMapActivity : AppCompatActivity() {
         db.collection("restaurants").document(restaurantID)
             .collection("rooms").document(roomID).get()
             .addOnSuccessListener {
+                val roomName = it.getString("name")
                 val rowCount = it.getLong("rows")?.toInt() ?: 3
                 val colCount = it.getLong("columns")?.toInt() ?: 3
                 binding.gridLayout.rowCount = rowCount
                 binding.gridLayout.columnCount = colCount
+                binding.title.text = "$roomName"
 
                 updateChanges(restaurantID, roomID)
             }

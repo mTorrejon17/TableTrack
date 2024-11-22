@@ -14,8 +14,8 @@
     <string name="text_restaurant_name">Escribe un nombre para tu restaurante.</string>
     <string name="text_restaurant_code">Para unirte, ingresa el código del restaurante. Solicítalo al administrador.</string>
     <string name="text_room_size">Selecciona tamaño de la sala.</string>
-    <string name="text_room_name">Ingrese nombre de la sala.</string>
-    <string name="text_table_number">Ingrese número o nombre de mesa.</string>
+    <string name="text_room_name">Ingresa nombre de la sala.</string>
+    <string name="text_table_number">Ingresa número o nombre de mesa.</string>
     <string name="row">Fila</string>
     <string name="column">Columna</string>
     <string name="terms_and_conditions">He leído y acepto los <font color='#E65100'>Términos y Condiciones</font>."</string>
@@ -54,10 +54,10 @@
     <string name="failed_login">Ingreso fallido.</string>
     <string name="failed_sign_up">El email que intenta ingresar ya se encuentra en nuestros registros.</string>
     <string name="failed_database">Error en la base de datos.</string>
-    <string name="please_all">Por favor, ingrese todos los datos requeridos.</string>
-    <string name="please_email">Por favor, ingrese un correo electrónico válido.</string>
+    <string name="please_all">Por favor, ingresa todos los datos requeridos.</string>
+    <string name="please_email">Por favor, ingresa un correo electrónico válido.</string>
     <string name="please_password">La contraseña debe tener mínimo 6 caracteres.</string>
-    <string name="please_terms">Por favor, acepte los Términos y Condiciones.</string>
+    <string name="please_terms">Por favor, acepta los Términos y Condiciones.</string>
     <string name="link_password">Se ha enviado un enlace a tu correo para restablecer la contraseña.</string>
 
     <string name="ok">Aceptar</string>

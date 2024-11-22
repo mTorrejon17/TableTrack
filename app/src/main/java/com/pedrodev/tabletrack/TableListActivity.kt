@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.appcompat.widget.PopupMenu
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -26,15 +28,25 @@ class TableListActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
+        binding.recyclerViewTables.layoutManager = LinearLayoutManager(this)
+
         db.collection("users").document(userID.toString()).get()
             .addOnSuccessListener { userDocument ->
                 val restaurantID = userDocument.getString("memberOf")
                 if (restaurantID != null) {
-                    db.collection("restaurants").document(restaurantID).get()
-                        .addOnSuccessListener { restDocument ->
-                            val restaurantName = restDocument.getString("name")
-                            if (restaurantName != null) {
-                                binding.title.text = restaurantName
+                    db.collection("restaurants").document(restaurantID)
+                        .collection("rooms").get()
+                        .addOnSuccessListener {
+                            if (!it.isEmpty) {
+                                val roomID = it.documents[0].id
+                                db.collection("restaurants").document(restaurantID)
+                                    .collection("rooms").document(roomID).get()
+                                    .addOnSuccessListener {
+                                        val roomName = it.getString("name")
+                                        binding.title.text = "$roomName"
+
+                                        tablesData(restaurantID)
+                                    }
                             }
                         }
                 }
@@ -90,6 +102,32 @@ class TableListActivity : AppCompatActivity() {
         }
     }
 
+    private fun tablesData(restaurantID: String) {
+        db.collection("restaurants").document(restaurantID)
+            .collection("rooms")
+            .get()
+            .addOnSuccessListener { roomsSnapshot ->
+                if (!roomsSnapshot.isEmpty) {
+                    val roomID = roomsSnapshot.documents[0].id
+                    db.collection("restaurants").document(restaurantID)
+                        .collection("rooms").document(roomID)
+                        .collection("tables")
+                        .get()
+                        .addOnSuccessListener { tablesSnapshot ->
+                            val tables = mutableListOf<Table>()
+                            for (document in tablesSnapshot) {
+                                val number = document.getString("number") ?: ""
+                                val isAvailable = document.getBoolean("isAvailable") ?: true
+                                tables.add(Table(number, isAvailable))
+                            }
+
+                            val tableAdapter = TableAdapter(tables)
+                            binding.recyclerViewTables.adapter = tableAdapter
+                        }
+                }
+            }
+    }
+
     override fun onStart() {
         super.onStart()
 
@@ -108,9 +146,5 @@ class TableListActivity : AppCompatActivity() {
             .addOnFailureListener {
                 Log.e("ERROR", "error OnStart TableListActivity")
             }
-
-
-
     }
-
 }

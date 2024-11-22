@@ -102,6 +102,11 @@ class CreateTableActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         binding.okCreateTable.setOnClickListener {
             val tableNumber = binding.editTextTableNumber.text.toString().trim()
 
+            if (tableNumber.isEmpty()) {
+                binding.root.alert("El número de la mesa no puede estar vacío")
+                return@setOnClickListener
+            }
+
             db.collection("users").document(userID.toString()).get()
                 .addOnSuccessListener { userDoc ->
                     val restaurantID = userDoc.getString("memberOf")

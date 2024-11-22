@@ -48,10 +48,6 @@ class TableListActivity : AppCompatActivity() {
                 getString(R.string.option_change_view_map)
             optionsMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
-                    R.id.option_edit_tables -> {
-                        binding.root.alert("SELECCIONADO: Editar mesas")
-                        true
-                    }
                     R.id.option_change_view -> {
                         this.moveTo(TableMapActivity::class.java)
                         finish()

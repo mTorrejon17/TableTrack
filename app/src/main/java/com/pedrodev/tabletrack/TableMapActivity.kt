@@ -1,5 +1,6 @@
 package com.pedrodev.tabletrack
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -205,6 +206,15 @@ class TableMapActivity : AppCompatActivity() {
             setOnClickListener {
                 val tableOptions = PopupMenu(this@TableMapActivity, it)
                 tableOptions.menuInflater.inflate(R.menu.table_options, tableOptions.menu)
+                val currentStatus = tableOptions.menu.findItem(R.id.table_options_status)
+
+                if (status == Status.AVAILABLE) {
+                    currentStatus.title = "Disponible"
+                } else if (status == Status.UNAVAILABLE) {
+                    currentStatus.title = "Ocupado"
+                }
+
+
                 tableOptions.setOnMenuItemClickListener { item ->
                     when (item.itemId) {
                         R.id.table_options_status -> {
@@ -234,6 +244,14 @@ class TableMapActivity : AppCompatActivity() {
                             true
                         }
                         R.id.table_options_edit -> {
+                            val intent = Intent(this@TableMapActivity, EditTablesActivity::class.java).apply {
+                                putExtra("restaurantID", restaurantID)
+                                putExtra("roomID", roomID)
+                                putExtra("tableNumber", text)
+                                putExtra("coordRow", row)
+                                putExtra("coordCol", col)
+                            }
+                            startActivity(intent)
                             true
                         }
                         R.id.table_options_delete -> {

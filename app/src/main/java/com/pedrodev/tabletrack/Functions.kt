@@ -114,11 +114,6 @@ object Functions {
         editor.apply()
     }
 
-    // GUARDAR DATOS EN FIREBASE
-    fun saveUserDatabase(name: String, email: String, ) {
-
-    }
-
     // CONVERTIR DP A PIXELES
     fun dpToPx(dp: Int, context: Context): Int {
         return (dp * context.resources.displayMetrics.density).toInt()

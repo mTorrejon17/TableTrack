@@ -56,7 +56,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_create_table"
+                android:text="@string/title_edit_table"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="24sp"

@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.pedrodev.tabletrack.Functions.alert
 import com.pedrodev.tabletrack.Functions.moveTo
 import com.pedrodev.tabletrack.databinding.ActivityCreateTableBinding
 
@@ -99,7 +100,7 @@ class CreateTableActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         }
 
         binding.okCreateTable.setOnClickListener {
-
+            val tableNumber = binding.editTextTableNumber.text.toString().trim()
 
             db.collection("users").document(userID.toString()).get()
                 .addOnSuccessListener { userDoc ->
@@ -108,19 +109,31 @@ class CreateTableActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
                         db.collection("restaurants").document(restaurantID)
                             .collection("rooms").get()
                             .addOnSuccessListener { roomsDoc ->
-                                val tableNumber = binding.editTextTableNumber.text.toString().trim()
                                 val roomID = roomsDoc.documents[0].id
-                                val tableData = hashMapOf(
-                                    "coordRow" to tableRow,
-                                    "coordCol" to tableColumn,
-                                    "number" to tableNumber,
-                                    "isAvailable" to true
-                                )
-
                                 db.collection("restaurants").document(restaurantID)
                                     .collection("rooms").document(roomID)
-                                    .collection("tables").add(tableData)
+                                    .collection("tables").document(tableNumber).get()
+                                    .addOnSuccessListener { tableDoc ->
+                                        if (tableDoc.exists()) {
+                                            binding.root.alert("El número de mesa ya está en uso")
+                                        } else {
+                                            val tableData = hashMapOf(
+                                                "coordRow" to tableRow,
+                                                "coordCol" to tableColumn,
+                                                "number" to tableNumber,
+                                                "isAvailable" to true
+                                            )
 
+                                            db.collection("restaurants").document(restaurantID)
+                                                .collection("rooms").document(roomID)
+                                                .collection("tables").document(tableNumber)
+                                                .set(tableData)
+                                                .addOnSuccessListener {
+                                                    this.moveTo(TableMapActivity::class.java)
+                                                    finish()
+                                                }
+                                        }
+                                    }
                             }
                     }
                 }

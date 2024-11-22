@@ -43,10 +43,6 @@ class TableMapActivity : AppCompatActivity() {
             optionsMenu.menuInflater.inflate(R.menu.table_view_menu, optionsMenu.menu)
             optionsMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
-                    R.id.option_edit_tables -> {
-                        binding.root.alert("SELECCIONADO: Editar mesas")
-                        true
-                    }
                     R.id.option_change_view -> {
                         this.moveTo(TableListActivity::class.java)
                         finish()
@@ -103,9 +99,6 @@ class TableMapActivity : AppCompatActivity() {
             }
             fabOptions.show()
         }
-
-
-
     } // FIN OnCreate
 
     override fun onStart() {
@@ -186,8 +179,7 @@ class TableMapActivity : AppCompatActivity() {
     }
      */
 
-
-    private fun addTable(row: Int, col: Int, text: String, size: Int, status: Status) {
+    private fun addTable(row: Int, col: Int, text: String, size: Int, status: Status, restaurantID: String, roomID: String) {
         val button = Button(this).apply {
             this.text = text
             background = ContextCompat.getDrawable(
@@ -208,6 +200,49 @@ class TableMapActivity : AppCompatActivity() {
                     Functions.dpToPx(4, this@TableMapActivity),
                     Functions.dpToPx(4, this@TableMapActivity),
                     Functions.dpToPx(4, this@TableMapActivity))
+            }
+
+            setOnClickListener {
+                val tableOptions = PopupMenu(this@TableMapActivity, it)
+                tableOptions.menuInflater.inflate(R.menu.table_options, tableOptions.menu)
+                tableOptions.setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.table_options_status -> {
+                            db.collection("restaurants").document(restaurantID)
+                                .collection("rooms").document(roomID)
+                                .collection("tables").whereEqualTo("number", text)
+                                .get()
+                                .addOnSuccessListener { tableDoc ->
+                                    if (!tableDoc.isEmpty) {
+                                        val table = tableDoc.documents[0]
+                                        val statusNow = table.getBoolean("isAvailable") ?: true
+                                        val nextStatus = !statusNow
+
+                                        db.collection("restaurants").document(restaurantID)
+                                            .collection("rooms").document(roomID)
+                                            .collection("tables").document(table.id)
+                                            .update("isAvailable", nextStatus)
+                                            .addOnSuccessListener {
+                                                background = ContextCompat.getDrawable(
+                                                    this@TableMapActivity,
+                                                    if (nextStatus) R.drawable.vector_table_green
+                                                    else R.drawable.vector_table_red
+                                                )
+                                            }
+                                    }
+                                }
+                            true
+                        }
+                        R.id.table_options_edit -> {
+                            true
+                        }
+                        R.id.table_options_delete -> {
+                            true
+                        }
+                        else -> false
+                    }
+                }
+                tableOptions.show()
             }
         }
         gridLayout.addView(button)
@@ -231,11 +266,9 @@ class TableMapActivity : AppCompatActivity() {
                         val isAvailable = table.getBoolean("isAvailable") ?: true
                         val status = if (isAvailable) Status.AVAILABLE else Status.UNAVAILABLE
 
-                        addTable(row, col, tableNumber.toString(), tableSize, status)
+                        addTable(row, col, tableNumber.toString(), tableSize, status, restaurantID, roomID)
                     }
-
                 }
             }
-
     }
 }

@@ -30,6 +30,7 @@
     <string name="title_settings">Ajustes</string>
     <string name="title_views"><b>TITULO</b></string>
     <string name="title_create_room">Crear sala</string>
+    <string name="title_create_table">Crear mesa</string>
     <string name="option_edit_tables">Editar mesas</string>
     <string name="option_change_view_list">Ver como lista</string>
     <string name="option_change_view_map">Ver como mapa</string>
@@ -76,11 +77,15 @@
     <string name="placeholder_room_name">Nombre de sala</string>
     <string name="placeholder_title_map"> </string>
 
-
     <string name="content_description_logo">Logo TableTrack</string>
     <string name="content_description_icon_user">Ícono usuario</string>
     <string name="content_description_button_add">Añadir elementos</string>
     <string name="content_description_options_menu">Menú de opciones</string>
+
+    <string name="table_available">Disponible</string>
+    <string name="table_unavailable">Ocupada</string>
+    <string name="table_edit">Editar</string>
+    <string name="table_delete">Eliminar</string>
 
     <string-array name="spinner_role_options">
         <item>- Elige rol -</item>

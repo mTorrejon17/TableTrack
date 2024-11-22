@@ -255,6 +255,24 @@ class TableMapActivity : AppCompatActivity() {
                             true
                         }
                         R.id.table_options_delete -> {
+                            val tableButton = it as Button
+                            db.collection("restaurants").document(restaurantID)
+                                .collection("rooms").document(roomID)
+                                .collection("tables").whereEqualTo("number", text)
+                                .get()
+                                .addOnSuccessListener { tableDoc ->
+                                    if (!tableDoc.isEmpty) {
+                                        val table = tableDoc.documents[0]
+
+                                        db.collection("restaurants").document(restaurantID)
+                                            .collection("rooms").document(roomID)
+                                            .collection("tables").document(table.id)
+                                            .delete()
+                                            .addOnSuccessListener {
+                                                gridLayout.removeView(tableButton)
+                                            }
+                                    }
+                                }
                             true
                         }
                         else -> false
